@@ -87,7 +87,7 @@ async def tinkoff_prices_1(message: types.Message, state: FSMClient_stocks_list.
     await state.finish()
 
 
-# @dp.message_handler(commands=['/Прочее'])
+# @dp.message_handler(commands=['/Инструменты'])
 async def tinkoff_another(message: types.Message):
     await FSMClient.load_stock_name.set()
     await message.reply('Выберите команду', reply_markup=kb_client_0)
@@ -173,23 +173,23 @@ async def tinkoff_portfolio_break(message: types.Message, state: FSMClient_portf
 
 def register_handlers_client(dp: Dispatcher):
     dp.register_message_handler(command_start, commands=['start', 'help'])
-    dp.register_message_handler(tinkoff_prices, commands=['Список_акций'], state=FSMAnother.main)
-    dp.register_message_handler(tinkoff_another_top_traders, commands=['Топ_трейдеров'], state=FSMAnother.main)
-    dp.register_message_handler(tinkoff_another_top_competitors, commands=['Текущие_результаты_соревнования'],
+    dp.register_message_handler(tinkoff_prices, text=['📊Список акций'], state=FSMAnother.main)
+    dp.register_message_handler(tinkoff_another_top_traders, text=['🏆Топ трейдеров'], state=FSMAnother.main)
+    dp.register_message_handler(tinkoff_another_top_competitors, text=['🏆Текущие результаты соревнования'],
                                 state=FSMAnother.main)
-    dp.register_message_handler(tinkoff_another_back, commands=['Вернуться'], state=FSMAnother.main)
-    dp.register_message_handler(tinkoff_prices_0, commands=['Ещё'], state=FSMClient_stocks_list.list)
-    dp.register_message_handler(tinkoff_prices_1, commands=['Вернуться'], state=FSMClient_stocks_list.list)
-    dp.register_message_handler(tinkoff_find_name, commands=['Узнать_цену_на_акцию'])
-    dp.register_message_handler(tinkoff_another, commands=['Прочее'])
+    dp.register_message_handler(tinkoff_another_back, text=['Вернуться'], state=FSMAnother.main)
+    dp.register_message_handler(tinkoff_prices_0, text=['Ещё'], state=FSMClient_stocks_list.list)
+    dp.register_message_handler(tinkoff_prices_1, text=['Вернуться'], state=FSMClient_stocks_list.list)
+    dp.register_message_handler(tinkoff_find_name, text=['💵Узнать цену на акцию'])
+    dp.register_message_handler(tinkoff_another, text=['🛠Инструменты'])
     dp.register_message_handler(load_stock_name, state=FSMClient.load_stock_name)
-    dp.register_message_handler(buy_stock, commands=['Купить'], state=FSMClient.trading_stock)
+    dp.register_message_handler(buy_stock, text=['📥Купить'], state=FSMClient.trading_stock)
     dp.register_message_handler(buy_stock_1, state=FSMClient.buy_stock_state)
-    dp.register_message_handler(sell_stock, commands=['Продать'], state=FSMClient.trading_stock)
+    dp.register_message_handler(sell_stock, text=['📤Продать'], state=FSMClient.trading_stock)
     dp.register_message_handler(sell_stock_1, state=FSMClient.sell_stock_state)
-    dp.register_message_handler(stock_stop_trading, commands=['Вернуться'], state=FSMClient.trading_stock)
-    dp.register_message_handler(tinkoff_portfolio, commands=['Мой_портфель'])
-    dp.register_message_handler(tinkoff_portfolio_count, commands=['Рассчитать_цену_портфеля'],
+    dp.register_message_handler(stock_stop_trading, text=['Вернуться'], state=FSMClient.trading_stock)
+    dp.register_message_handler(tinkoff_portfolio, text=['💰Мой портфель'])
+    dp.register_message_handler(tinkoff_portfolio_count, text=['Рассчитать цену портфеля'],
                                 state=FSMClient_portfolio.count_portfolio)
-    dp.register_message_handler(tinkoff_portfolio_break, commands=['Вернуться'],
+    dp.register_message_handler(tinkoff_portfolio_break, text=['Вернуться'],
                                 state=FSMClient_portfolio.count_portfolio)
